@@ -102,7 +102,7 @@ class Player {
         this.vx*=0.9;
         this.vy*=0.9;
         
-        if(GMKeys.w) {
+        if(GMKeys.KeyW) {
             if(this.isBoosting&&this.ships[this.ship].canBoost) {
                 this.vx+=(Math.sin(angle)*this.ships[this.ship].boostSpeed);
             this.vy+=-(Math.cos(angle)*this.ships[this.ship].boostSpeed);
@@ -115,19 +115,27 @@ class Player {
             this.isMoving=false;
         }
         
-        if(GMKeys.Shift) {
+        if(GMKeys.ShiftLeft) {
             this.isBoosting=true;
         } else {
             this.isBoosting=false;
         }
         
-        if(GMKeys.a) {
+        if(GMKeys.KeyA) {
             this.vAngle-=1;
         }
         
-        if(GMKeys.d) {
+        if(GMKeys.KeyD) {
             this.vAngle+=1;
         }
         
+    }
+    
+    getX() {
+        return this.x;
+    }
+    
+    getY() {
+        return this.y;
     }
 }

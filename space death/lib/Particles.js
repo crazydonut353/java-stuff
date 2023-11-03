@@ -60,6 +60,7 @@ class ParticleEmitter {
         this.STATIC = 1;
         this.delay = 100;
         this.lifetime = 100;
+        this.lastFrame = 0;
         this.startParticles = 10;
         this.particles = [];
         this.started = false;
@@ -75,10 +76,11 @@ class ParticleEmitter {
         }
     }
     
-    start() {
+    start(time) {
         if(this.type == this.CONTINUOUS) {
             return;
         } else if(this.type == this.STATIC) {
+            this.lastFrame = time;
             this.addRandomParticles(this.startParticles);
             return;
         } else {
@@ -98,12 +100,12 @@ class ParticleEmitter {
         if(this.type == this.CONTINUOUS) {
             
         } else if(this.type == this.STATIC) {
-            this.started ? null : null;
+            
         } else {
             throw new Error("Animation type not compatible or null!");
         }
         
-        this.started ? null : this.started = true;
+        
     }
     
     draw(ctx) {

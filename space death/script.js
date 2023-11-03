@@ -1,6 +1,8 @@
 import { Images } from "./lib/BetterImage.js";
 import { Player } from "./lib/Player.js";
 import { SpaceMap } from "./lib/Map.js";
+import { Lazer } from "./lib/LazerManager.js";
+import { World } from "./lib/World.js";
 
 /**
  * @type {HTMLCanvasElement}
@@ -9,11 +11,14 @@ const canvas = document.querySelector("#c");
 const ctx = canvas.getContext("2d");
 
 const imageAssets = new Images( [
-    "./images/asteroids-arcade.png"
+    "./images/asteroids-arcade.png",
+    "./images/stuipid_lazer.png"
 ] );
 
 var player;
 var map;
+let world;
+var l = new Lazer(0,0,40,0);
 var GMKeys = {};
 
 const backgroundColor = "black";
@@ -30,6 +35,8 @@ async function init() {
     
     await map.setupAsteroids();
     
+    world=new World(player);
+    
     gameloop();
 }
 
@@ -42,16 +49,16 @@ function gameloop() {
     player.draw(ctx);
     player.update(GMKeys);
     
+    l.draw(ctx,imageAssets.files[1],1,world);
+    l.update();
+    
     requestAnimationFrame(gameloop);
 }
 
 init();
 
 document.addEventListener("keydown", (e) => {
-    GMKeys[e.key]=true;
+    GMKeys[e.code]=true;
 }, true);
-document.addEventListener("keyup", (e) => {GMKeys[e.key]=false;}, true);
+document.addEventListener("keyup", (e) => {GMKeys[e.code]=false;}, true);
 
-document.addEventListener("click", () => {
-    player.ship++;
-});

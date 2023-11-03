@@ -11,6 +11,13 @@ class SpaceMap {
             }
         ];
         this.enemys = [];
+        this.tradeShips = [
+            {
+                "x":0,
+                "y":0,
+                "angle":0
+            }
+        ]
         this.spritesheet = spritesheet;
     }
     
